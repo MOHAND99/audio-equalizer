@@ -1,5 +1,4 @@
 import tkinter as tk
-import scipy.io.wavfile as wav
 from tkinter import filedialog
 
 
