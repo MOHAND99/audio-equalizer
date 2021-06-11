@@ -27,7 +27,7 @@ def design_fir_system(fs, order=100, freqs=get_bands()):
 
     for i in range(1, len(freqs)):
         freqs[i] = freqs[i] / fs
-        if freqs[i][0] > 0 and freqs[i][1] < 1:
+        if freqs[i][1] < 1:
             filters[i] = scipy.signal.firwin(order + 1,
                                              freqs[i],
                                              window="hamming",
