@@ -36,11 +36,19 @@ elif filter_type == 'fir':
 # plot_zeros_poles(filters)
 plot_mag_phase(filters, output_fs)
 # plot_impl_unitstep(filters)
-output = np.zeros_like(data)
+
+filters_with_gain = []
 for i, filter in enumerate(filters):
+    filters_with_gain.append((np.array(filter[0] * (10 ** (gains[i] / 20))),
+                              filter[1]))
+
+plot_mag_phase(filters_with_gain, output_fs)
+
+output = np.zeros_like(data)
+for i, filter in enumerate(filters_with_gain):
     current = signal.lfilter(filter[0], filter[1], data)
     # TODO: Draw current in time and frequency domain
-    output = output + current * (10 ** (gains[i] / 20))
+    output = output + current
 # TODO: Draw output in time and frequency domain
 
 output_file_name = tk.filedialog.asksaveasfilename(title="Save wav file",
