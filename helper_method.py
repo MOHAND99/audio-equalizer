@@ -22,12 +22,14 @@ def design_fir_system(fs, order=100, freqs=get_bands()):
 
     freqs[0] = freqs[0] / fs
     if freqs[0][1] < 1:
-        filters[0] = signal.firwin(order + 1, freqs[0][1])
+        filters.append([signal.firwin(order + 1, freqs[0][1])])
 
     for i in range(1, len(freqs)):
         freqs[i] = freqs[i] / fs
         if freqs[i][1] < 1:
             filters.append(signal.firwin(order + 1, freqs[i]))
+            continue
+        break
 
     return filters
 
